@@ -34,7 +34,14 @@ router.post('/', (req, res) => {
       res.render('home', { msg: err })
     } else {
       if (!req.file) {
-        res.render('home', { msg: 'Error: File kosong!' })
+        Posting
+          .findAll()
+          .then((data) => {
+            res.render('home', { data, msg: 'Error: No file selected!' })
+          })
+          .catch((err) => {
+            res.send(err);
+          });
       } else {
         Posting
           .create({
