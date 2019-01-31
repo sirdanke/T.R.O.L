@@ -5,6 +5,7 @@ const session = require('express-session')
 const Public = require('./routes/public')
 const User = require('./routes/users')
 
+// Session
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -12,15 +13,15 @@ app.use(session({
   cookie: { secure: true }
 }))
 
-
-
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 app.set('view engine', 'ejs')
-app.use(express.urlencoded({extended: false}))
+app.use(express.static('./public'))
 
 
-app.use('/public', Public)
-app.use('/users', User)
+app.use('/', Public)
+app.use('/home', User)
 
-app.listen(port,function() {
-    console.log('running in port '+port); 
+app.listen(port, function () {
+  console.log('running in port ' + port);
 })
