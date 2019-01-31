@@ -3,7 +3,7 @@ const router = express.Router()
 const model = require('../models')
 const Users = model.User
 const bcrypt = require('bcrypt')
-// const bcrypt = require('../helpers/bcrypt')
+const bcrypt = require('../helpers/bcrypt')
 
 
 
@@ -34,6 +34,7 @@ router.post('/',(req,res)=> {
         res.send(err)
     })
 })
+
 
 router.get('/sign_up', (req,res)=> {
     res.render('signup')
