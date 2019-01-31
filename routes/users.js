@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Posting = require('../models').Posting
+const PostingTags = require('../models').PostingTag
 const multer = require('multer')
 const path = require('path')
 const User = require('../models').User
@@ -18,21 +19,21 @@ const upload = multer({
   storage: storage
 }).single('img')
 
-// router.use(function(req, res, next) {
+router.use(function(req, res, next) {
 
-//     if (req.session.login) {
-//         next()
-//     } else {
-//         res.redirect('/')
-//     }
-//   })
+    if (req.session.login) {
+        next()
+    } else {
+        res.redirect('/')
+    }
+  })
 
 router.get('/', (req, res) => {
   Posting
     .findAll()
     .then((data) => {
-      // data.getUser()
-      res.render('home', { data })
+      let tmp = req.session;
+      res.render('home', { data, tmp })
     })
     .catch((err) => {
       res.send(err)
@@ -51,19 +52,24 @@ router.post('/', (req, res) => {
             res.render('home', { data, msg: 'Error: No file selected!' })
           })
           .catch((err) => {
-            res.send(err);
+            res.send(err)
           });
       } else {
-        Posting
+        return Posting
           .create({
             path_directory: req.file.path,
             caption: req.body.caption,
             UserId: req.session.login.id
           })
-          .then(() => {
+          .then((data) => {
+            return PostingTags.create({TagId : req.body.TagId, PostingId : data.id})
+          })
+          .then(()=> {
             res.redirect('/home')
           })
           .catch((err) => {
+              console.log(err);
+              
             res.send(err)
           })
       }
