@@ -17,6 +17,15 @@ const upload = multer({
   storage: storage
 }).single('img')
 
+router.use(function(req, res, next) {
+
+    if (req.session.login) {
+        next()
+    } else {
+        res.redirect('/')
+    }
+  })
+
 router.get('/', (req, res) => {
   Posting
     .findAll()
