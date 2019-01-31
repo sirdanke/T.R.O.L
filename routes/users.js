@@ -6,17 +6,16 @@ const Users = model.User
  
 
 router.use(function(req, res, next) {
-    res.send(req.session)
-    if (req.session.isLoggedIn) {
+
+    if (req.session.login) {
         next()
     } else {
-    res.redirect('/public')
+        res.redirect('/')
     }
   })
 
 
-router.get('/home',(req,res)=> {
-    // res.send(req.session)
+router.get('/',(req,res)=> {
     res.render('home')
 })
 

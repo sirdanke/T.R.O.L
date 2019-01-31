@@ -7,9 +7,6 @@ const User = require('./routes/users')
 
 app.use(session({
   secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
 }))
 
 
@@ -18,8 +15,8 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended: false}))
 
 
-app.use('/public', Public)
-app.use('/users', User)
+app.use('/', Public)
+app.use('/home', User)
 
 app.listen(port,function() {
     console.log('running in port '+port); 
