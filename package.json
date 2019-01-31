@@ -20,6 +20,8 @@
   "homepage": "https://github.com/sirdanke/T.R.O.L#readme",
   "dependencies": {
     "bcrypt": "^3.0.3",
+    "dotenv": "^6.2.0",
+    "dotenvy": "^0.1.1",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",

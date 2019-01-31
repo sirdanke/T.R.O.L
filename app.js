@@ -4,6 +4,7 @@ const port = 3000
 const session = require('express-session')
 const Public = require('./routes/public')
 const User = require('./routes/users')
+require('dotenv').config()
 
 // Session
 app.use(session({

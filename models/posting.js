@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     UserId: DataTypes.STRING
   }, {});
   Posting.associate = function (models) {
-    // associations can be defined here
+    Posting.hasMany(models.PostingTag)
   };
   // Posting.beforeCreate((post) => {
   //   const uriBase = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/detect';
