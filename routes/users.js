@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Posting = require('../models').Posting
+const PostingTags = require('../models').PostingTag
 const multer = require('multer')
 const path = require('path')
 
@@ -45,15 +46,20 @@ router.post('/', (req, res) => {
       if (!req.file) {
         res.render('home', { msg: 'Error: File kosong!' })
       } else {
-        Posting
+        return Posting
           .create({
             path_directory: req.file.path,
             caption: req.body.caption
           })
-          .then(() => {
+          .then((data) => {
+            return PostingTags.create({TagId : req.body.TagId, PostingId : data.id})
+          })
+          .then(()=> {
             res.redirect('/home')
           })
           .catch((err) => {
+              console.log(err);
+              
             res.send(err)
           })
       }
