@@ -30,9 +30,14 @@ router.use(function(req, res, next) {
 
 router.get('/', (req, res) => {
   Posting
-    .findAll()
+    .findAll({
+      include: {
+        model: User
+      }
+    })
     .then((data) => {
-      let tmp = req.session;
+      // res.send(data)
+      var tmp = req.session;
       res.render('home', { data, tmp })
     })
     .catch((err) => {
@@ -49,7 +54,8 @@ router.post('/', (req, res) => {
         Posting
           .findAll()
           .then((data) => {
-            res.render('home', { data, msg: 'Error: No file selected!' })
+            var tmp = req.session
+            res.render('home', { data, msg: 'Error: No file selected!', tmp })
           })
           .catch((err) => {
             res.send(err)
@@ -75,6 +81,23 @@ router.post('/', (req, res) => {
       }
     }
   })
+})
+
+router.get('/:username', (req, res) => {
+  User
+  .findOne({
+    where: {
+      username: req.params.username
+    },
+    include: [{
+      model: Posting
+    }]
+  })
+  .then((result) => {
+    res.send(result)
+  }).catch((err) => {
+    res.send(err);
+  });
 })
 
 module.exports = router

@@ -15,17 +15,17 @@ module.exports = {
         type: Sequelize.STRING
       },
       UserId: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue : new Date
+        defaultValue: new Date
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue : new Date
+        defaultValue: new Date
       }
     });
   },

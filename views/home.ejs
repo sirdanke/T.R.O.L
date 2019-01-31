@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <title>To Refresh Our Life</title>
 </head>
@@ -12,34 +13,38 @@
 <body>
 
 
-  <!-- Navbar goes here -->
-  <nav>
-    <div class="nav-wrapper grey darken-4">
-      <!-- <a href="#" class="brand-logo">Logo</a> -->
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <% if (tmp.id) { %>
-          <li><a href="collapsible.html">Logout</a></li>
-        <% } %>
-      </ul>
+  <div class="row">
+    <div class="col s12">
+      <!-- Navbar -->
+      <nav>
+        <div class="nav-wrapper grey darken-4">
+          <!-- <a href="#" class="brand-logo">Logo</a> -->
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <% if (tmp.login.id) { %>
+              <li><a href="/home/<%= tmp.login.username %>">Profile</a></li>
+            <li><a href="/logout">Logout</a></li>
+            <% } %>
+          </ul>
+        </div>
+
+      </nav>
     </div>
 
-  </nav>
-
-  <!-- Page Layout here -->
-  <div class="row">
-    <div class="col s12 m4 l3">
-      <!--   -->
+    <div class="col s12 m4 l2">
+      <!-- Upload -->
       <h6 style="color: red">
-          <%= typeof msg != 'undefined' ? msg : '' %>
+        <%= typeof msg != 'undefined' ? msg : '' %>
       </h6>
       <form action="/home" method="POST" enctype="multipart/form-data">
+        <h5>Upload photo</h5>
+        <br><br>
         <div class="left-align">
           Caption
           <input type="text" name="caption">
         </div>
         <div class="file-field input-field ch-file">
           <div class="btn-small grey darken-5"">
-            <input type="file" name="img">
+              <input type="file" name="img">
             <span>...</span>
           </div>
           <div class="file-path-wrapper">
@@ -66,24 +71,36 @@
           <button type="submit" class="btn">Submit</button>
         </div>
       </form>
-      <!--  -->
     </div>
 
-    <div class="col s12 m8 l9">
-
+    <div class="col s12 m4 l8">
+      <!-- All Post -->
       <div class="post">
         <% data.forEach(post => { %>
         <h3>
           <%= post.caption %>
         </h3>
-        <p>posted by:</p>
-        <img src="<%= post.path_directory.slice(7) %>" class="responsive-img">
+        <p>posted by: <%= post.User.first_name + ' ' + post.User.last_name %></p>
+        <img class="responsive-img" src="<%= post.path_directory.slice(7) %>">
         <% }) %>
       </div>
-
     </div>
 
+    <div class="col s12 m4 l2">
+      <h5>Search by Tag: </h5>
+      <div class="collection center-align col">
+        <a href="/home/anger" class="collection-item">Anger</a>
+        <a href="/home/contempt" class="collection-item">Contempt</a>
+        <a href="/home/disgust" class="collection-item">Disgust</a>
+        <a href="/home/fear" class="collection-item">Fear</a>
+        <a href="/home/happiness" class="collection-item">Happiness</a>
+        <a href="/home/neutral" class="collection-item">Neutral</a>
+        <a href="/home/sadness" class="collection-item">Sadness</a>
+        <a href="/home/surprise" class="collection-item">Surprise</a>
+      </div>
+    </div>
   </div>
+
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
