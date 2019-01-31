@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Posting.associate = function (models) {
     // associations can be defined here
     Posting.belongsTo(models.User)
+    Posting.hasMany(models.PostingTag)
   };
   // Posting.beforeCreate((post) => {
   //   const uriBase = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/detect';
