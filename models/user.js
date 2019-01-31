@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     secret: DataTypes.STRING
   }, {});
   User.associate = function (models) {
-    // associations can be defined here
+    User.hasMany(models.Posting)
+    // User.belongsT(models.PostingTag)
   };
 
   User.beforeCreate((user) => {
