@@ -1,0 +1,55 @@
+<h3><a href="/logout">logout</a></h3>
+
+  <div class="row">
+    <div class="col s6">
+      <h6 style="color: red">
+        <%= typeof msg != 'undefined' ? msg : '' %>
+      </h6>
+      <br>
+      <form action="/home" method="POST" enctype="multipart/form-data">
+        <div class="row">
+          Caption
+          <input type="text" name="caption">
+        </div>
+        <div class="file-field input-field ch-file">
+          <div class="btn-small grey darken-5"">
+            <input type="file" name="img">
+            <span>...</span>
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+        </div>
+
+        <div class="input-field col s4">
+          <select name="TagId">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">Anger</option>
+            <option value="2">Contempt</option>
+            <option value="3">Disgust</option>
+            <option value="4">Fear</option>
+            <option value="5">Happiness</option>
+            <option value="6">Neutral</option>
+            <option value="7">Sadness</option>
+            <option value="8">Surprise</option>
+          </select>
+          <label>Tag</label>
+        </div>
+
+        <div class="col s6" style="margin-top: 20px">
+          <button type="submit" class="btn">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="container col s6">
+      <% data.forEach(post => { %>
+      <h3>
+        <%= post.caption %>
+      </h3>
+      <p>posted by:</p>
+      <img src="<%= post.path_directory.slice(7) %>" class="responsive-img">
+      <% }) %>
+    </div>
+
+  </div>

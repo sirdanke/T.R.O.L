@@ -5,6 +5,9 @@ const PostingTags = require('../models').PostingTag
 const Tags = require('../models').Tag
 const multer = require('multer')
 const path = require('path')
+
+const User = require('../models').User
+
 const request = require('request');
 const { uriBase, params} = require('../helpers/faceRecognition')
 
@@ -16,8 +19,6 @@ const storage = multer.diskStorage({
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
   }
 })
-
-
 
 
 // setup upload
@@ -38,7 +39,8 @@ router.get('/', (req, res) => {
   Posting
     .findAll()
     .then((data) => {
-      res.render('home', { data })
+      let tmp = req.session;
+      res.render('home', { data, tmp })
     })
     .catch((err) => {
       res.send(err)
@@ -51,12 +53,20 @@ router.post('/', (req, res) => {
       res.render('home', { msg: err })
     } else {
       if (!req.file) {
-        res.render('home', { msg: 'Error: File kosong!' })
+        Posting
+          .findAll()
+          .then((data) => {
+            res.render('home', { data, msg: 'Error: No file selected!' })
+          })
+          .catch((err) => {
+            res.send(err)
+          });
       } else {
         return Posting
           .create({
             path_directory: req.file.path,
-            caption: req.body.caption
+            caption: req.body.caption,
+            UserId: req.session.login.id
           })
           .then((data) => {
             return PostingTags.create({ TagId: req.body.TagId, PostingId: data.id })

@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     UserId: DataTypes.STRING
   }, {});
   Posting.associate = function (models) {
+    // associations can be defined here
+    Posting.belongsTo(models.User)
     Posting.hasMany(models.PostingTag)
   };
   // Posting.beforeCreate((post) => {
