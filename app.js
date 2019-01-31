@@ -8,9 +8,6 @@ const User = require('./routes/users')
 // Session
 app.use(session({
   secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
 }))
 
 app.use(express.json())
