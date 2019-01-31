@@ -3,7 +3,6 @@ const router = express.Router()
 const model = require('../models')
 const Users = model.User
 const bcrypt = require('bcrypt')
-const bcrypt = require('../helpers/bcrypt')
 
 
 
@@ -31,6 +30,8 @@ router.post('/',(req,res)=> {
         }
     })
     .catch(err => {
+        console.log(err);
+        
         res.send(err)
     })
 })

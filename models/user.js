@@ -1,6 +1,6 @@
 'use strict';
 const bycript = require('../helpers/bcrypt')
-const secret = require('../helpers/secret')
+// const secret = require('../helpers/secret')
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
