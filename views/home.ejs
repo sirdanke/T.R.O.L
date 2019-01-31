@@ -37,6 +37,7 @@
     <div class="container col s6">
       <% data.forEach(post => { %>
       <h3><%= post.caption %></h3>
+      <p>posted by:</p>
       <img src="<%= post.path_directory.slice(7) %>" class="responsive-img">
       <% }) %>
     </div>

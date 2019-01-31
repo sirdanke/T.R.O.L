@@ -3,6 +3,7 @@ const router = express.Router()
 const Posting = require('../models').Posting
 const multer = require('multer')
 const path = require('path')
+const User = require('../models').User
 
 // setup storage
 const storage = multer.diskStorage({
@@ -17,19 +18,20 @@ const upload = multer({
   storage: storage
 }).single('img')
 
-router.use(function(req, res, next) {
+// router.use(function(req, res, next) {
 
-    if (req.session.login) {
-        next()
-    } else {
-        res.redirect('/')
-    }
-  })
+//     if (req.session.login) {
+//         next()
+//     } else {
+//         res.redirect('/')
+//     }
+//   })
 
 router.get('/', (req, res) => {
   Posting
     .findAll()
     .then((data) => {
+      // data.getUser()
       res.render('home', { data })
     })
     .catch((err) => {
@@ -55,7 +57,8 @@ router.post('/', (req, res) => {
         Posting
           .create({
             path_directory: req.file.path,
-            caption: req.body.caption
+            caption: req.body.caption,
+            UserId: req.session.login.id
           })
           .then(() => {
             res.redirect('/home')

@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Posting.associate = function(models) {
     // associations can be defined here
+    Posting.belongsTo(models.User)
   };
   // Posting.beforeCreate
   return Posting;
