@@ -26,18 +26,18 @@ const upload = multer({
   storage: storage
 }).single('img')
 
-// router.use(function (req, res, next) {
+router.use(function (req, res, next) {
 
-//   if (req.session.login) {
-//     next()
-//   } else {
-//     res.redirect('/')
-//   }
-// })
+  if (req.session.login) {
+    next()
+  } else {
+    res.redirect('/')
+  }
+})
 
 router.get('/', (req, res) => {
   Posting
-    .findAll()
+    .findAll({order : [['id', 'DESC']]})
     .then((data) => {
       let tmp = req.session;
       res.render('home', { data, tmp })
@@ -166,19 +166,23 @@ router.post('/faceRecognition', (req, res) => {
       res.send(err)
     })
     
-  // console.log(parsing[0].faceAttributes.emotion);
-  
-
-    // res.send(parsing[0].faceAttributes)
-
-
-
-    // console.log(emotion);
-
-    // console.log(parsing[0].faceAttributes.emotion, "========");
-
   });
 
+
+})
+
+router.get('/tag/:emotion',(req,res)=> {
+  Tags.findOne({where: {tag_name : req.params.emotion}})
+  .then(data=> {
+    return PostingTags.findAll({where: {TagId : data.id}, include : [{model : Posting}]})
+  })
+  .then(alldata=> {
+    res.render('alltag', {data : alldata, emotion: req.params.emotion})
+    // res.send(alldata)
+  })
+  .catch(err=> {
+    res.send(err)
+  })
 
 })
 
