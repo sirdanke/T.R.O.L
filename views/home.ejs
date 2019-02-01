@@ -2,51 +2,33 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <% include ./partials/head %>
   <title>To Refresh Our Life</title>
 </head>
 
 <body>
 
-  <!-- Navbar goes here -->
-  <nav>
-    <div class="nav-wrapper grey darken-4">
-      <!-- <a href="#" class="brand-logo">Logo</a> -->
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <% if (tmp.id) { %>
-          <li><a href="collapsible.html">Logout</a></li>
-        <% } %>
-      </ul>
+  <div class="row">
+    <div class="col s12">
+      <!-- Navbar -->
+      <% include ./partials/navbar %>
     </div>
 
-  </nav>
-
-  <!-- Page Layout here -->
-  <div>
-    <form action="/home/faceRecognition" method="POST">
-      <input name="link">
-      <button type="submit">submit</button>
-    </form>
-   
-  </div>
-
-  <div class="row">
-    <div class="col s12 m4 l3">
-      <!--   -->
+    <div class="col s12 m4 l2">
+      <!-- Upload -->
       <h6 style="color: red">
-          <%= typeof msg != 'undefined' ? msg : '' %>
+        <%= typeof msg != 'undefined' ? msg : '' %>
       </h6>
       <form action="/home" method="POST" enctype="multipart/form-data">
+        <h5>Upload photo</h5>
+        <br><br>
         <div class="left-align">
           Caption
           <input type="text" name="caption">
         </div>
         <div class="file-field input-field ch-file">
           <div class="btn-small grey darken-5"">
-            <input type="file" name="img">
+              <input type="file" name="img">
             <span>...</span>
           </div>
           <div class="file-path-wrapper">
@@ -73,34 +55,58 @@
           <button type="submit" class="btn">Submit</button>
         </div>
       </form>
-      <!--  -->
     </div>
 
-    <div class="col s12 m8 l9">
-
+    <div class="col s12 m4 l8">
+      <!-- All Post -->
       <div class="post">
         <% data.forEach(post => { %>
         <h3>
           <%= post.caption %>
         </h3>
-        <p>posted by:</p>
-        <img src="<%= post.path_directory.slice(7) %>" class="responsive-img">
+        <p>posted by:
+          <%= post.User.first_name + ' ' + post.User.last_name %>
+        </p>
+        <img class="responsive-img" src="<%= post.path_directory.slice(7) %>">
         <% }) %>
+      </div>
+    </div>
+
+    <div class="col s12 m4 l2">
+      <form action="/home/byTag" method="POST">
+        <h5>Search by Tag: </h5>
+        <div class="input-field col left-align">
+          <select name="tag_name">
+            <option value="anger">Anger</option>
+            <option value="contempt">Contempt</option>
+            <option value="disgust">Disgust</option>
+            <option value="fear">Fear</option>
+            <option value="happiness">Happiness</option>
+            <option value="neutral">Neutral</option>
+            <option value="sadness">Sadness</option>
+            <option value="surprise">Surprise</option>
+          </select>
+        </div>
+        <div class="right-align">
+          <button type="submit" class="btn">Submit</button>
+        </div>
+      </form>
+
+      <div>
+        <form action="/home/faceRecognition" method="POST">
+          <p>Want to know more</p>
+          <label>input your picture here</label>
+          <input name="link">
+          <div class="right-align">
+            <button type="submit" class="btn">Submit</button>
+          </div>
+        </form>
       </div>
 
     </div>
-
   </div>
 
-
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $('select').formSelect();
-    });
-  </script>
+  <% include ./partials/script %>
 </body>
 
 </html>

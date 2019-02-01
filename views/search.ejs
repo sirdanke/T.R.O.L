@@ -2,24 +2,32 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <% include ./partials/head %>
   <title>To Refresh Our Life</title>
 </head>
 
 <body>
-    <p>this is the result for your serach for <%= emotion %> your age <%= age%> your gender <%= gender %></p>
-    <p><a href="/home/tag/<%= emotion %>">search by your current mood</a></p>
-  <h3><a href="/logout">logout</a></h3>
- 
-    <div class="container col s6">
-      <% data.forEach(post => { %>
-      <h3><%= post.Posting.caption %></h3>
-      <img src="/<%= post.Posting.path_directory.slice(7) %>" class="responsive-img">
-      <% }) %>
+  <div class="row">
+    <div class="col s12">
+      <% include ./partials/navbar %>
     </div>
+
+    <div class="col s12 m4 l3">
+      <!---->
+    </div>
+
+    <div class="col s12 m8 l9">
+      <h4>Hello
+        <%= greeting(age,gender) %> I guest your age about
+        <%= age%>
+      </h4>
+      <p> I think you are <%= emotion %> now </p>
+      <p><a href="/home/tag/<%= emotion %>">Do you wanna search posting by your current mood?</a></p>
+      <img src="<%= url %>" class="responsive-img">
+    </div>
+  </div>
+
+
   </div>
 
 
