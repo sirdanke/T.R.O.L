@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ./partials/head %>
+  <title>Edit</title>
+</head>
+
+<body>
+
+  <div class="row">
+    <div class="col s12">
+      <nav>
+        <div class="nav-wrapper grey darken-4">
+          <a href="/home" class="brand-logo">Home</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="col s12 m4 l3">
+      <!---->
+    </div>
+
+    <div class="col s12 m4 l6">
+      <div class="col s12">
+        <div class="row">
+
+
+          <form action="/profile/edit/<%= user.id %>" method="post" enctype="multipart/form-data">
+            <div>
+              <label for="first_name">First Name</label>
+              <input name="first_name" type="text" class="validate" value="<%= user.first_name %>">
+            </div>
+            <div>
+              <label for="last">Last Name</label>
+              <input name="last_name" placeholder="Placeholder" type="text" class="validate" value="<%= user.last_name %>">
+            </div>
+            <div>
+              <label for="username">Username</label>
+              <input name="username" placeholder="Placeholder" type="text" class="validate" value="<%= user.username %>">
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input name="email" placeholder="Placeholder" type="text" class="validate" value="<%= user.email %>">
+            </div>
+
+            <label for="upload">Upload image</label>
+            <div class="file-field input-field ch-file">
+              <div class="btn-small grey darken-5"">
+                <input type="file" name="img">
+                <span>...</span>
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+
+            <button class="btn" type="submit">submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12 m4 l3">
+      <!---->
+    </div>
+
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>

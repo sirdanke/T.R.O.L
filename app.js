@@ -4,6 +4,8 @@ const port = 3000
 const session = require('express-session')
 const Public = require('./routes/public')
 const User = require('./routes/users')
+const Profile = require('./routes/profile');
+require('dotenv').config()
 
 // Session
 app.use(session({
@@ -18,6 +20,7 @@ app.use(express.static('./public'))
 
 app.use('/', Public)
 app.use('/home', User)
+app.use('/profile', Profile)
 
 app.listen(port, function () {
   console.log('running in port ' + port);

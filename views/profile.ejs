@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ./partials/head %>
+  <link rel="stylesheet" href="/css/profile.css">
+  <title>Profile</title>
+</head>
+
+<body>
+
+  <div class="row">
+    <div class="col s12">
+      <!-- Navbar -->
+      <% include ./partials/navbar %>
+    </div>
+
+    <div class="container">
+      <div class="profile col">
+        <div class="profile-image">
+        
+          <img class="responsive-img" src="<%= user.profile_directory.slice(6) %>" style="max-height: 250px">
+        </div>
+
+        <div class="profile-user-settings">
+          <h1 class="profile-user-name">
+            <%= user.username %>
+          </h1>
+
+          <button class="btn profile-edit-btn">
+            <a href="/profile/edit/<%= user.id %>">Edit Profile</a>
+          </button>
+        </div>
+        <div class="profile-stats">
+          <ul>
+            <li><span class="profile-stat-count">
+                <%= total %></span> posts</li>
+          </ul>
+        </div>
+
+        <div class="profile-bio">
+
+        </div>
+
+      </div>
+    </div>
+
+    <main>
+      <div class="container">
+        <div class="row">
+          <% user.Postings.forEach(data => { %>
+          <div class="col s6">
+            <!-- <%= data.path_directory.slice(6) %> -->
+            <img class="responsive-img" src="<%= data.path_directory.slice(6) %>" class="gallery-image" style="max-height: 320px">
+            <a href="/profile/delete/<%=data.id%>/<%=user.username%>">delete post</a>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </main>
+
+</body>
+
+</html>

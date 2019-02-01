@@ -5,16 +5,16 @@ const Users = model.User
 const bcrypt = require('bcrypt')
 
 
-
 router.get('/', (req,res)=> {
     res.render('login')
 })
-
 
 router.post('/',(req,res)=> {
     let data = ''
     Users.findOne({where : { username : req.body.username}})
     .then(userData => {
+        console.log(userData);
+        
         data = userData
         return bcrypt.compare(req.body.password, data.password)
     })
@@ -32,16 +32,16 @@ router.post('/',(req,res)=> {
     .catch(err => {
         console.log(err);
         
-        res.send(err)
+        res.redirect('/')
     })
 })
-
 
 router.get('/sign_up', (req,res)=> {
     res.render('signup')
 })
 
 router.post('/sign_up', (req,res)=> {
+    req.body.profile_directory = 'public/uploads/default.jpg'
     Users.create(req.body)
     .then(data => {
         res.redirect('/home')

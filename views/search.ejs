@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ./partials/head %>
+  <title>To Refresh Our Life</title>
+</head>
+
+<body>
+  <div class="row">
+    <div class="col s12">
+      <% include ./partials/navbar %>
+    </div>
+
+    <div class="col s12 m4 l3">
+      <!---->
+    </div>
+
+    <div class="col s12 m8 l9">
+      <h4>Hello
+        <%= greeting(age,gender) %> I guest your age about
+        <%= age%>
+      </h4>
+      <p> I think you are <%= emotion %> now </p>
+      <p><a href="/home/tag/<%= emotion %>">Do you wanna search posting by your current mood?</a></p>
+      <img src="<%= url %>" class="responsive-img">
+    </div>
+  </div>
+
+
+  </div>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>

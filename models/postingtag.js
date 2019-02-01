@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   PostingTag.associate = function(models) {
     // associations can be defined here
+    PostingTag.belongsTo(models.Posting)
   };
   return PostingTag;
 };

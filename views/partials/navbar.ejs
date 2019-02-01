@@ -1,0 +1,11 @@
+<nav>
+    <div class="nav-wrapper grey darken-4">
+      <a href="/home" class="brand-logo">Home</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <% if (card.login) { %>
+        <li><a href="/profile/<%= card.login.username %>">Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <% } %>
+      </ul>
+    </div>
+</nav>
